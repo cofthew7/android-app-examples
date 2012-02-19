@@ -10,9 +10,6 @@ public class PhotosActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.main);
-        TextView textview = new TextView(this);
-        textview.setText("This is the photoa tab");
-        setContentView(textview);
+        setContentView(R.layout.photos);
     }
 }
