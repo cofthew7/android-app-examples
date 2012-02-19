@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+    <string name="tab_photos_label">照片</string>
+    <string name="tab_songs_label">歌曲</string>
+    <string name="tab_videos_label">视频</string>
 </resources>

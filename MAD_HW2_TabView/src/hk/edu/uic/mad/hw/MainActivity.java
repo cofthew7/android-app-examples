@@ -23,20 +23,20 @@ public class MainActivity extends TabActivity {
         intent = new Intent().setClass(this, PhotosActivity.class);
 
         // Initialize a TabSpec for each tab and add it to the TabHost
-        spec = tabHost.newTabSpec("photos").setIndicator("Photos",
+        spec = tabHost.newTabSpec("photos").setIndicator(res.getString(R.string.tab_photos_label),
                           res.getDrawable(R.drawable.photos))
                       .setContent(intent);
         tabHost.addTab(spec);
 
         // Do the same for the other tabs
         intent = new Intent().setClass(this, SongsActivity.class);
-        spec = tabHost.newTabSpec("songs").setIndicator("Songs",
+        spec = tabHost.newTabSpec("songs").setIndicator(res.getString(R.string.tab_songs_label),
                           res.getDrawable(R.drawable.songs))
                       .setContent(intent);
         tabHost.addTab(spec);
 
         intent = new Intent().setClass(this, VideosActivity.class);
-        spec = tabHost.newTabSpec("videos").setIndicator("Videos",
+        spec = tabHost.newTabSpec("videos").setIndicator(res.getString(R.string.tab_videos_label),
                           res.getDrawable(R.drawable.videos))
                       .setContent(intent);
         tabHost.addTab(spec);

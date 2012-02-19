@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello World, MAD_HW2_TabViewActivity!</string>
     <string name="app_name">HW2</string>
-
+    <string name="tab_photos_label">Photos</string>
+    <string name="tab_songs_label">Songs</string>
+    <string name="tab_videos_label">Video</string>
+	
 </resources>
