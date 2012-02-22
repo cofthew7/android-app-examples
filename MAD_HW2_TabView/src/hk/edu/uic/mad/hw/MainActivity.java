@@ -8,39 +8,42 @@ import android.os.Bundle;
 import android.widget.TabHost;
 
 public class MainActivity extends TabActivity {
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
 
-        Resources res = getResources(); // Resource object to get Drawables
-        TabHost tabHost = getTabHost();  // The activity TabHost
-        TabHost.TabSpec spec;  // Resusable TabSpec for each tab
-        Intent intent;  // Reusable Intent for each tab
+		Resources res = getResources(); // Resource object to get Drawables
+		TabHost tabHost = getTabHost(); // The activity TabHost
+		TabHost.TabSpec spec; // Resusable TabSpec for each tab
+		Intent intent; // Reusable Intent for each tab
 
-        // Create an Intent to launch an Activity for the tab (to be reused)
-        intent = new Intent().setClass(this, PhotosActivity.class);
+		// Create an Intent to launch an Activity for the tab (to be reused)
+		intent = new Intent().setClass(this, PhotosActivity.class);
 
-        // Initialize a TabSpec for each tab and add it to the TabHost
-        spec = tabHost.newTabSpec("photos").setIndicator(res.getString(R.string.tab_photos_label),
-                          res.getDrawable(R.drawable.photos))
-                      .setContent(intent);
-        tabHost.addTab(spec);
+		// Initialize a TabSpec for each tab and add it to the TabHost
+		spec = tabHost
+				.newTabSpec("photos")
+				.setIndicator(res.getString(R.string.tab_photos_label),
+						res.getDrawable(R.drawable.photos)).setContent(intent);
+		tabHost.addTab(spec);
 
-        // Do the same for the other tabs
-        intent = new Intent().setClass(this, SongsActivity.class);
-        spec = tabHost.newTabSpec("songs").setIndicator(res.getString(R.string.tab_songs_label),
-                          res.getDrawable(R.drawable.songs))
-                      .setContent(intent);
-        tabHost.addTab(spec);
+		// Do the same for the other tabs
+		intent = new Intent().setClass(this, SongsActivity.class);
+		spec = tabHost
+				.newTabSpec("songs")
+				.setIndicator(res.getString(R.string.tab_songs_label),
+						res.getDrawable(R.drawable.songs)).setContent(intent);
+		tabHost.addTab(spec);
 
-        intent = new Intent().setClass(this, VideosActivity.class);
-        spec = tabHost.newTabSpec("videos").setIndicator(res.getString(R.string.tab_videos_label),
-                          res.getDrawable(R.drawable.videos))
-                      .setContent(intent);
-        tabHost.addTab(spec);
+		intent = new Intent().setClass(this, VideosActivity.class);
+		spec = tabHost
+				.newTabSpec("videos")
+				.setIndicator(res.getString(R.string.tab_videos_label),
+						res.getDrawable(R.drawable.videos)).setContent(intent);
+		tabHost.addTab(spec);
 
-        tabHost.setCurrentTab(0);
-    }
+		tabHost.setCurrentTab(0);
+	}
 }
