@@ -2,23 +2,13 @@ package hk.edu.uic.mad.hw;
 
 import hk.edu.hk.mad.hw.R;
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
-import android.widget.BaseAdapter;
-import android.widget.Gallery;
-import android.widget.ImageView;
 import android.widget.ViewFlipper;
 
 public class VideosActivity extends Activity implements OnGestureListener,
@@ -26,7 +16,6 @@ public class VideosActivity extends Activity implements OnGestureListener,
 	/** Called when the activity is first created. */
 	private ViewFlipper mFlipper;
 	GestureDetector mGestureDetector;
-	private int mCurrentLayoutState;
 	private static final int FLING_MIN_DISTANCE = 100;
 	private static final int FLING_MIN_VELOCITY = 200;
 
@@ -40,7 +29,6 @@ public class VideosActivity extends Activity implements OnGestureListener,
 		mGestureDetector = new GestureDetector(this);
 		// 给mFlipper设置一个listener
 		mFlipper.setOnTouchListener(this);
-		mCurrentLayoutState = 0;
 		// 允许长按住ViewFlipper,这样才能识别拖动等手势
 		mFlipper.setLongClickable(true);
 
@@ -64,7 +52,7 @@ public class VideosActivity extends Activity implements OnGestureListener,
 		// TODO Auto-generated method stub
 		if (e1.getX() - e2.getX() > FLING_MIN_DISTANCE
 				&& Math.abs(velocityX) > FLING_MIN_VELOCITY) {
-			// 当像左侧滑动的时候
+			// 当向左侧滑动的时候
 			// 设置View进入屏幕时候使用的动画
 			mFlipper.setInAnimation(AnimationUtils.loadAnimation(this,
 					R.anim.right_in));
@@ -74,9 +62,11 @@ public class VideosActivity extends Activity implements OnGestureListener,
 			mFlipper.showNext();
 		} else if (e2.getX() - e1.getX() > FLING_MIN_DISTANCE
 				&& Math.abs(velocityX) > FLING_MIN_VELOCITY) {
-			// 当像右侧滑动的时候
+			// 当向右侧滑动的时候
+			// 设置View进入屏幕时候使用的动画
 			mFlipper.setInAnimation(AnimationUtils.loadAnimation(this,
 					R.anim.left_in));
+			// 设置View退出屏幕时候使用的动画
 			mFlipper.setOutAnimation(AnimationUtils.loadAnimation(this,
 					R.anim.right_out));
 			mFlipper.showPrevious();
