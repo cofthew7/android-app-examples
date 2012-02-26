@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HW3</string>
+    <string name="tab_photos_label">Photos</string>
+    <string name="tab_songs_label">Songs</string>
+    <string name="tab_videos_label">Video</string>
+	
+   	<string-array name="songs_array">
+        <item>Afghanistan</item>
+        <item>Albania</item>
+        <item>Algeria</item>
+        <item>American Samoa</item>
+        <item>Andorra</item>
+        <item>Angola</item>
+        <item>Anguilla</item>
+        <item>Antarctica</item>
+        <item>Antigua and Barbuda</item>
+        <item>Argentina</item>
+        <item>Armenia</item>
+        <item>Aruba</item>
+        <item>Australia</item>
+        <item>Austria</item>
+        <item>Azerbaijan</item>
+        <item>Bahrain</item>
+        <item>Bangladesh</item>
+        <item>Barbados</item>
+        <item>Belarus</item>
+        <item>Belgium</item>
+        <item>Belize</item>
+        <item>Benin</item>
+        
+    </string-array>
+
+   	<string name="menu_bookmark">Bookmark</string>
+   	<string name="menu_save">Save</string>
+   	<string name="menu_search">Search</string>
+   	<string name="menu_share">Share</string>
+   	<string name="menu_delete">Delete</string>
+   	<string name="menu_preferences">Preferences</string>
+   	
+   	<string name="dialog_title">Save File…</string>
+   	<string name="dialog_message">Do you want to save this file?</string>
+   	<string name="dialog_positive">YES</string>
+   	<string name="dialog_negative">Cancel</string>
+   	<string name="dialog_neutral">NO</string>
+   	
+   	<string name="menu_2pix">2 Pixels</string>
+   	<string name="menu_8pix">8 Pixels</string>
+   	<string name="menu_16pix">16 Pixels</string>
+</resources>

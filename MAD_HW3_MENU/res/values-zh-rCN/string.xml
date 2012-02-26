@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tab_photos_label">照片</string>
+    <string name="tab_songs_label">歌曲</string>
+    <string name="tab_videos_label">视频</string>
+    
+    <string name="menu_bookmark">书签</string>
+   	<string name="menu_save">保存</string>
+   	<string name="menu_search">搜索</string>
+   	<string name="menu_share">分享</string>
+   	<string name="menu_delete">删除</string>
+   	<string name="menu_preferences">选项</string>
+   	
+   	<string name="dialog_title">保存文件…</string>
+   	<string name="dialog_message">是否保存文件？</string>
+   	<string name="dialog_positive">是</string>
+   	<string name="dialog_negative">取消</string>
+   	<string name="dialog_neutral">否</string>
+   	
+   	<string name="menu_2pix">2 像素</string>
+   	<string name="menu_8pix">8 像素</string>
+   	<string name="menu_16pix">16 像素</string>
+   	
+</resources>
