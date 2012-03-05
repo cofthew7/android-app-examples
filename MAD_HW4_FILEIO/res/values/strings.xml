@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">HW3</string>
+    <string name="app_name">HW4</string>
     <string name="tab_photos_label">Photos</string>
     <string name="tab_songs_label">Songs</string>
     <string name="tab_videos_label">Video</string>
