@@ -1,8 +1,16 @@
 package hk.edu.uic.mad.hw;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import hk.edu.hk.mad.hw.R;
+import hk.edu.uic.mad.hw.model.Song;
 import hk.edu.uic.mad.hw.utils.FileIO;
 import android.app.ListActivity;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -12,11 +20,14 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.SimpleAdapter.ViewBinder;
 
 public class SongsActivity extends ListActivity {
 	
-	private static String SETTINGS_FILE = "settings.txt";
+	private static String SONGS_LIST = "SongList.txt";
 	
 	private FileIO fileIO;
 	private ListView lv;
@@ -26,47 +37,47 @@ public class SongsActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		String[] songs = getResources().getStringArray(R.array.songs_array);
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.songs, songs));
-
 		fileIO = new FileIO();
 		lv = getListView();
-		lv.setDividerHeight(Integer.parseInt(fileIO.readFileFromSDCard(SETTINGS_FILE)));
-		this.registerForContextMenu(lv);
+		
+		Resources res = getResources();
+		ArrayList<HashMap<String, Object>> songList = new ArrayList<HashMap<String, Object>>();
+		List<Song> songs = fileIO.readFileFromSDCard(SONGS_LIST);
+		
+		for (int i = 0; i < songs.size(); i++) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			Song song = songs.get(i);
+			Bitmap bm = BitmapFactory.decodeFile(song.getAlubm());
+			map.put("album", bm);
+			map.put("song_name", song.getTitle());
+			map.put("singer", song.getSinger());
+			map.put("duration", song.getDuration());
+			songList.add(map);
+		}
+		
+		SimpleAdapter songListAdapter = new SimpleAdapter(this, songList, R.layout.songs, 
+				new String[]{"album", "song_name", "singer", "duration"},
+				new int[]{R.id.album, R.id.song_name, R.id.singer, R.id.duration});
+		
+		songListAdapter.setViewBinder(new ViewBinder() {
+			public boolean setViewValue(View view, Object data, String textRepresentation) {
+				if (view instanceof ImageView && data instanceof Bitmap) {
+					ImageView iv = (ImageView) view;
+					iv.setImageBitmap((Bitmap) data);
+					return true;
+				} else {
+					return false;
+				}
+			}
+		});
+		
+		lv.setAdapter(songListAdapter);
+		
 	}
 	
 	@Override
 	public void onResume () {
 		super.onResume();
-		lv.setDividerHeight(Integer.parseInt(fileIO.readFileFromSDCard(SETTINGS_FILE)));
 	}
 	
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-	                                ContextMenuInfo menuInfo) {
-	    super.onCreateContextMenu(menu, v, menuInfo);
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.context_menu, menu);
-	}
-	
-	@Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-                .getMenuInfo();
-        switch (item.getItemId()) {
-        case R.id.pix2:
-            fileIO.writeFileToSDCard(SETTINGS_FILE, "2");
-            lv.setDividerHeight(2);
-            return true;
-        case R.id.pix8:
-	        fileIO.writeFileToSDCard(SETTINGS_FILE, "8");
-	        lv.setDividerHeight(8);
-        	return true;
-        case R.id.pix16:
-        	fileIO.writeFileToSDCard(SETTINGS_FILE, "16");
-	        lv.setDividerHeight(16);
-        default:
-            return super.onContextItemSelected(item);
-        }
-    }
 }

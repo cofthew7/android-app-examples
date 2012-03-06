@@ -1,49 +1,51 @@
 package hk.edu.uic.mad.hw.utils;
 
+import hk.edu.uic.mad.hw.model.Song;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import android.os.Environment;
 import android.util.Log;
 
 public class FileIO {
 	
-	private String fileContent;
+	private List<Song> songList; 
 	
 	public FileIO() {
-		
-	}
-	
-	public FileIO(String fileContent) {
-		super();
-		this.fileContent = fileContent;
+		songList = new LinkedList<Song>();
 	}
 
-	public String readFileFromSDCard(String fileName) {
+	public List<Song> readFileFromSDCard(String fileName) {
 		File directory = Environment.getExternalStorageDirectory();
 		
-		// Assumes that a file article.rss is available on the SD card
-		File file = new File(directory + "/" + fileName);
+		File file = new File(directory + "/sample3/" + fileName);
 		if (!file.exists()) {
-			// throw new RuntimeException("File not found");
 			Log.d("FILEIO", "FILE NOT FOUND");
-			this.writeFileToSDCard(fileName, "0");
 		}
 		
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new FileReader(file));
-			StringBuilder builder = new StringBuilder();
+			
 			String line;
 			while ((line = reader.readLine()) != null) {
-				builder.append(line);
+				Song song = new Song();
+				song.setId(Integer.parseInt(line));
+				song.setTitle(reader.readLine());
+				song.setSinger(reader.readLine());
+				song.setDuration(reader.readLine());
+				song.setAlubm(directory + "/sample3/" + reader.readLine());
+				Log.d("FILEIO", song.getAlubm());
+				songList.add(song);
 			}
-			fileContent = builder.toString();
-			Log.d("FILEIO", "READ " + fileContent);
+			Log.d("FILEIO", "Read Finished!");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -55,22 +57,25 @@ public class FileIO {
 				}
 			}
 		}
-		return fileContent;
+		return songList;
 	}
 
-	public boolean writeFileToSDCard(String fileName, String fileContent) {
+	public boolean writeFileToSDCard(String fileName, Song song) {
 		File directory = Environment.getExternalStorageDirectory();
 		
-		// Assumes that a file article.rss is available on the SD card
-		File file = new File(directory + "/" + fileName);
+		File file = new File(directory + "/sample3/" + fileName);
 		
 		BufferedWriter writer = null;
 		try {
 			writer = new BufferedWriter(new FileWriter(file));
-			writer.write(fileContent);
+			writer.write(song.getId() + "\n");
+			writer.write(song.getTitle() + "\n");
+			writer.write(song.getSinger() + "\n");
+			writer.write(song.getDuration() + "\n");
+			writer.write(song.getAlubm() + "\n");
 			writer.flush();
 			writer.close();
-			Log.d("FILEIO", "Write to SD Card");
+			Log.d("FILEIO", "Write Finished!");
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
