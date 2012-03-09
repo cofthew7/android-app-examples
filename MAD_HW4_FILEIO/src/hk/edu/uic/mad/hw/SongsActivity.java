@@ -38,6 +38,9 @@ public class SongsActivity extends ListActivity {
 	
 	private FileIO fileIO;
 	private ListView lv;
+	private ArrayList<HashMap<String, Object>> songList;
+	private SimpleAdapter songListAdapter;
+	private List<Song> songs;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -48,8 +51,8 @@ public class SongsActivity extends ListActivity {
 		lv = getListView();
 		
 		Resources res = getResources();
-		ArrayList<HashMap<String, Object>> songList = new ArrayList<HashMap<String, Object>>();
-		List<Song> songs = fileIO.readFileFromSDCard(SONGS_LIST);
+		songList = new ArrayList<HashMap<String, Object>>();
+		songs = fileIO.readFileFromSDCard(SONGS_LIST);
 		
 		/* create list view dynamically */
 		for (int i = 0; i < songs.size(); i++) {
@@ -64,7 +67,7 @@ public class SongsActivity extends ListActivity {
 			songList.add(map);
 		}
 		
-		SimpleAdapter songListAdapter = new SimpleAdapter(this, songList, R.layout.songs, 
+		songListAdapter = new SimpleAdapter(this, songList, R.layout.songs, 
 				new String[]{"song_id", "album", "song_name", "singer", "duration"},
 				new int[]{R.id.song_id, R.id.album, R.id.song_name, R.id.singer, R.id.duration});
 		
@@ -82,11 +85,13 @@ public class SongsActivity extends ListActivity {
 		
 		/* OnItemClickListener for items in the list view */
 		OnItemClickListener listener = new OnItemClickListener (){
-
+			HashMap<String, Object> map;
+			int selectedItemId;
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				//Toast.makeText(getApplicationContext(), arg1.getTag().toString(), Toast.LENGTH_SHORT).show();
+				map = (HashMap<String, Object>)lv.getItemAtPosition(arg2);
+				selectedItemId = arg2;
 				Dialog dialog = new AlertDialog.Builder(SongsActivity.this)
 				.setIcon(R.drawable.delete)
 				.setTitle(SongsActivity.this.getResources().getText(R.string.dialog_title_song).toString())
@@ -96,8 +101,11 @@ public class SongsActivity extends ListActivity {
 							
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								Toast.makeText(getApplicationContext(),
-										"You clicked on " + getResources().getText(R.string.dialog_positive), Toast.LENGTH_SHORT).show();
+								songs.remove(map.get("song_id"));
+								songList.remove(selectedItemId);
+								songListAdapter.notifyDataSetChanged();
+								lv.invalidate();
+								Toast.makeText(getApplicationContext(), "Delete " + map.get("song_id")+ " " +  map.get("song_name"), Toast.LENGTH_SHORT).show();
 							}
 						})
 				.setNegativeButton(R.string.dialog_negative,

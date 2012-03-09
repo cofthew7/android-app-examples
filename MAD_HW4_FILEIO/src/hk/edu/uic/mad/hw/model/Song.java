@@ -49,4 +49,11 @@ public class Song {
 		this.alubm = alubm;
 	}
 
+	public boolean equals(Object obj) {
+		String id = (String)obj;
+		if(Integer.parseInt(id) == this.id)
+			return true;
+		return false;
+		
+	}
 }
