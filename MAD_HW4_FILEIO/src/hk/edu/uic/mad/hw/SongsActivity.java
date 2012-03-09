@@ -15,6 +15,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -41,6 +42,7 @@ public class SongsActivity extends ListActivity {
 	private ArrayList<HashMap<String, Object>> songList;
 	private SimpleAdapter songListAdapter;
 	private List<Song> songs;
+	private boolean isModified;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -49,12 +51,13 @@ public class SongsActivity extends ListActivity {
 
 		fileIO = new FileIO();
 		lv = getListView();
-		
-		Resources res = getResources();
+		isModified = false;
 		songList = new ArrayList<HashMap<String, Object>>();
-		songs = fileIO.readFileFromSDCard(SONGS_LIST);
+		
 		
 		/* create list view dynamically */
+		songs = fileIO.readFileFromSDCard(SONGS_LIST);
+		
 		for (int i = 0; i < songs.size(); i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			Song song = songs.get(i);
@@ -101,10 +104,14 @@ public class SongsActivity extends ListActivity {
 							
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								songs.remove(map.get("song_id"));
+								
+								Song song = new Song();
+								song.setId(Integer.parseInt(map.get("song_id").toString()));
+								Log.d("FILEIO", "" + songs.remove(song));
 								songList.remove(selectedItemId);
 								songListAdapter.notifyDataSetChanged();
 								lv.invalidate();
+								isModified = true;
 								Toast.makeText(getApplicationContext(), "Delete " + map.get("song_id")+ " " +  map.get("song_name"), Toast.LENGTH_SHORT).show();
 							}
 						})
@@ -126,6 +133,7 @@ public class SongsActivity extends ListActivity {
 		lv.setOnItemClickListener(listener);
 	}
 	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
@@ -138,19 +146,50 @@ public class SongsActivity extends ListActivity {
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	        case R.id.add:
-	            //showToast(this.getResources().getText(R.string.menu_bookmark).toString());
+	        	Log.d("MENU", "add");
 	            return true;
 	        case R.id.delete_all:
-	        	//showToast(this.getResources().getText(R.string.menu_save).toString());
+	        	Log.d("MENU", "delete all");
+	        	songs.clear();
+	        	songList.clear();
+	        	songListAdapter.notifyDataSetChanged();
+				lv.invalidate();
+				isModified = true;
 	            return true;
 	        case R.id.add_all:
-	        	//showToast(this.getResources().getText(R.string.menu_search).toString());
+	        	Log.d("MENU", "add all");
+	        	songs.clear();
+	        	songs = fileIO.readFileFromSDCard(SONGS_LIST);
+	    		
+	    		for (int i = 0; i < songs.size(); i++) {
+	    			HashMap<String, Object> map = new HashMap<String, Object>();
+	    			Song song = songs.get(i);
+	    			Bitmap bm = BitmapFactory.decodeFile(song.getAlubm());
+	    			map.put("song_id", song.getId());
+	    			map.put("album", bm);
+	    			map.put("song_name", song.getTitle());
+	    			map.put("singer", song.getSinger());
+	    			map.put("duration", song.getDuration());
+	    			songList.add(map);
+	    		}
+	    		songListAdapter.notifyDataSetChanged();
+				lv.invalidate();
+				isModified = true;
 	        	return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
 	
+	public void onPause() {
+		
+		if (isModified) {
+			Log.d("FILEIO", "song size " + songs.size());
+			fileIO.writeFileToSDCard(SONGS_LIST, songs);
+			isModified = false;
+		}
+		super.onPause();
+	}
 	@Override
 	public void onResume () {
 		super.onResume();

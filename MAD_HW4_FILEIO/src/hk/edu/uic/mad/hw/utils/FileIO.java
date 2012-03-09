@@ -60,19 +60,21 @@ public class FileIO {
 		return songList;
 	}
 
-	public boolean writeFileToSDCard(String fileName, Song song) {
+	public boolean writeFileToSDCard(String fileName, List<Song> songs) {
 		File directory = Environment.getExternalStorageDirectory();
 		
 		File file = new File(directory + "/sample3/" + fileName);
 		
 		BufferedWriter writer = null;
 		try {
-			writer = new BufferedWriter(new FileWriter(file, true));
-			writer.write(song.getId() + "\n");
-			writer.write(song.getTitle() + "\n");
-			writer.write(song.getSinger() + "\n");
-			writer.write(song.getDuration() + "\n");
-			writer.write(song.getAlubm() + "\n");
+			writer = new BufferedWriter(new FileWriter(file));
+			for (int i = 0; i < songs.size(); i++) {
+				writer.write(songs.get(i).getId() + "\n");
+				writer.write(songs.get(i).getTitle() + "\n");
+				writer.write(songs.get(i).getSinger() + "\n");
+				writer.write(songs.get(i).getDuration() + "\n");
+				writer.write(songs.get(i).getAlubm().substring(20) + "\n");
+			}
 			writer.flush();
 			writer.close();
 			Log.d("FILEIO", "Write Finished!");

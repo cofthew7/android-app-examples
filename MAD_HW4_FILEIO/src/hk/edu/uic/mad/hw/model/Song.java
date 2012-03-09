@@ -1,5 +1,7 @@
 package hk.edu.uic.mad.hw.model;
 
+import android.util.Log;
+
 public class Song {
 	private int id;
 	private String title;
@@ -50,8 +52,8 @@ public class Song {
 	}
 
 	public boolean equals(Object obj) {
-		String id = (String)obj;
-		if(Integer.parseInt(id) == this.id)
+		Song song = (Song)obj;
+		if(song.getId() == this.id)
 			return true;
 		return false;
 		
