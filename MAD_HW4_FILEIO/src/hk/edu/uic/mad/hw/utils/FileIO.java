@@ -67,7 +67,7 @@ public class FileIO {
 		
 		BufferedWriter writer = null;
 		try {
-			writer = new BufferedWriter(new FileWriter(file));
+			writer = new BufferedWriter(new FileWriter(file, true));
 			writer.write(song.getId() + "\n");
 			writer.write(song.getTitle() + "\n");
 			writer.write(song.getSinger() + "\n");

@@ -17,6 +17,9 @@
    	<string name="dialog_negative">取消</string>
    	<string name="dialog_neutral">否</string>
    	
+   	<string name="dialog_title_song">确认删除…</string>
+   	<string name="dialog_message_song">是否删除此项?</string>
+   	
    	<string name="menu_2pix">2 像素</string>
    	<string name="menu_8pix">8 像素</string>
    	<string name="menu_16pix">16 像素</string>

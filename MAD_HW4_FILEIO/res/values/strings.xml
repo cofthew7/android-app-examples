@@ -44,7 +44,14 @@
    	<string name="dialog_negative">Cancel</string>
    	<string name="dialog_neutral">NO</string>
    	
+   	<string name="dialog_title_song">Confirm delete…</string>
+   	<string name="dialog_message_song">Are you sure you want delete this?</string>
+   	
    	<string name="menu_2pix">2 Pixels</string>
    	<string name="menu_8pix">8 Pixels</string>
    	<string name="menu_16pix">16 Pixels</string>
+   	
+   	<string name="add">Add</string>
+   	<string name="add_all">Add all</string>
+   	<string name="delete_all">Delete all</string>
 </resources>
