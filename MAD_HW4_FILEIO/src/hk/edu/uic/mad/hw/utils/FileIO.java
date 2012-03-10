@@ -22,6 +22,14 @@ public class FileIO {
 		songList = new LinkedList<Song>();
 	}
 
+	public boolean isExist(String path) {
+		File file = new File(path);
+		
+		if(file.exists()) {
+			return true;
+		}
+		return false;
+	}
 	public List<Song> readFileFromSDCard(String fileName) {
 		File directory = Environment.getExternalStorageDirectory();
 		

@@ -54,4 +54,9 @@
    	<string name="add">Add</string>
    	<string name="add_all">Add all</string>
    	<string name="delete_all">Delete all</string>
+   	
+   	<string name="put_song_name">Song Name here:</string>
+   	<string name="put_singer">Singer:</string>
+   	<string name="put_duration">Duration:</string>
+   	<string name="put_image">Image name here:</string>
 </resources>

@@ -1,5 +1,6 @@
 package hk.edu.uic.mad.hw;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,9 +12,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -61,7 +65,15 @@ public class SongsActivity extends ListActivity {
 		for (int i = 0; i < songs.size(); i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			Song song = songs.get(i);
-			Bitmap bm = BitmapFactory.decodeFile(song.getAlubm());
+			
+			Bitmap bm;
+			if(fileIO.isExist(song.getAlubm())) {
+				bm = BitmapFactory.decodeFile(song.getAlubm());
+			} else {
+				Drawable d = this.getResources().getDrawable(R.drawable.no_image);
+				bm = ((BitmapDrawable)d).getBitmap();
+			}
+			
 			map.put("song_id", song.getId());
 			map.put("album", bm);
 			map.put("song_name", song.getTitle());
@@ -147,6 +159,11 @@ public class SongsActivity extends ListActivity {
 	    switch (item.getItemId()) {
 	        case R.id.add:
 	        	Log.d("MENU", "add");
+	        	Log.d("INTENT", "before add " + songs.size());
+	        	Intent addSongIntent = new Intent(SongsActivity.this, AddSongActivity.class);
+	        	addSongIntent.putExtra("songs", (Serializable)songs);
+	        	startActivityForResult(addSongIntent, 0);
+	        	
 	            return true;
 	        case R.id.delete_all:
 	        	Log.d("MENU", "delete all");
@@ -164,7 +181,13 @@ public class SongsActivity extends ListActivity {
 	    		for (int i = 0; i < songs.size(); i++) {
 	    			HashMap<String, Object> map = new HashMap<String, Object>();
 	    			Song song = songs.get(i);
-	    			Bitmap bm = BitmapFactory.decodeFile(song.getAlubm());
+	    			Bitmap bm;
+	    			if(fileIO.isExist(song.getAlubm())) {
+	    				bm = BitmapFactory.decodeFile(song.getAlubm());
+	    			} else {
+	    				Drawable d = this.getResources().getDrawable(R.drawable.no_image);
+	    				bm = ((BitmapDrawable)d).getBitmap();
+	    			}	    			
 	    			map.put("song_id", song.getId());
 	    			map.put("album", bm);
 	    			map.put("song_name", song.getTitle());
@@ -181,6 +204,7 @@ public class SongsActivity extends ListActivity {
 	    }
 	}
 	
+	
 	public void onPause() {
 		
 		if (isModified) {
@@ -195,4 +219,33 @@ public class SongsActivity extends ListActivity {
 		super.onResume();
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch(resultCode) {
+		case RESULT_OK:
+			isModified = true;
+			songs = (List<Song>) data.getSerializableExtra("songs");
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			Song song = songs.get(songs.size() - 1);
+			Bitmap bm;
+			if(fileIO.isExist(song.getAlubm())) {
+				bm = BitmapFactory.decodeFile(song.getAlubm());
+			} else {
+				Drawable d = this.getResources().getDrawable(R.drawable.no_image);
+				bm = ((BitmapDrawable)d).getBitmap();
+			}
+			map.put("song_id", song.getId());
+			map.put("album", bm);
+			map.put("song_name", song.getTitle());
+			map.put("singer", song.getSinger());
+			map.put("duration", song.getDuration());
+			songList.add(map);
+			songListAdapter.notifyDataSetChanged();
+			lv.invalidate();
+			break;
+		default:
+			break;
+		}
+	}
 }

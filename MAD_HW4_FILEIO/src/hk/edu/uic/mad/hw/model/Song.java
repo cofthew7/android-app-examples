@@ -1,8 +1,12 @@
 package hk.edu.uic.mad.hw.model;
 
-import android.util.Log;
+import java.io.Serializable;
 
-public class Song {
+public class Song implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String title;
 	private String singer;

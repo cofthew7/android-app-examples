@@ -25,6 +25,8 @@
         </activity>
         <activity android:name="hk.edu.uic.mad.hw.PhotosActivity" >
         </activity>
+        <activity android:name="hk.edu.uic.mad.hw.AddSongActivity" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+         >
+        <ImageView 
+            android:id="@+id/default_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:src="@drawable/no_image"
+            android:layout_marginTop="28dp" />
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@id/default_image"
+            android:layout_marginLeft="30dp"
+            >
+            <TextView 
+                android:id="@+id/put_song_name"
+                android:text="@string/put_song_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:padding="5dp" />
+            <EditText 
+                android:id="@+id/put_song_name_edittext"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                ></EditText>
+            <TextView
+                android:id="@+id/put_singer" 
+                android:text="@string/put_singer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:padding="5dp" />
+            <EditText 
+                android:id="@+id/put_singer_edittext"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                ></EditText>
+            <TextView 
+                android:id="@+id/put_duration"
+                android:text="@string/put_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:padding="5dp" />
+            <EditText 
+                android:id="@+id/put_duration_edittext"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                ></EditText>
+            <TextView 
+                android:id="@+id/put_image"
+                android:text="@string/put_image" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:padding="5dp" />
+            <EditText 
+                android:id="@+id/put_image_edittext"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                ></EditText>
+            
+        </LinearLayout>
+    </RelativeLayout>
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_marginTop="30dip"
+    >
+    <Button 
+        android:id="@+id/cancle_add_song"
+        android:layout_width="110dip"
+        android:layout_height="wrap_content"
+        android:text="Cancle" 
+        android:layout_marginRight="25dip"/>
+    <Button 
+        android:id="@+id/save_add_song"
+        android:layout_width="110dip"
+        android:layout_height="wrap_content"
+        android:text="Save" />
+</LinearLayout>
+</LinearLayout>
