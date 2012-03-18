@@ -2,11 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/background"
     android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello" />
+    <include
+        android:id="@+id/opponent_bar"
+        layout="@layout/opponent_bar" />
+
+    <include
+        android:id="@+id/my_playcards"
+        layout="@layout/my_playcards" />
+
+    <include
+        android:id="@+id/buttons"
+        layout="@layout/buttons" />
+
+    <include
+        android:id="@+id/my_cards"
+        layout="@layout/my_cards" />
 
 </LinearLayout>
