@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import android.graphics.Point;
+import android.util.Log;
 
 public class CardGroup {
 	public static final String LETTER = "abcdefghijklmnopqrstuvwxyz";
@@ -17,33 +18,34 @@ public class CardGroup {
 	CardGroup() {
 		this.numCards = 0;
 		this.cards = new LinkedList<Card>();
-		this.cardsLocation = new Point();
+		//this.cardsLocation = new Point();
 	}
 
-	CardGroup(String[] str, Point p) {
+	CardGroup(String[] str) {
 		// 1, assign value for instance variable "numCards" and "cardsLocation"
 
 		this.numCards = str.length;
 		this.cards = new LinkedList<Card>();
-		this.cardsLocation = new Point(p);
+		//this.cardsLocation = new Point(p);
 		// 2, assign value for instance variable "cards"
 		// assign value of each card in this CardGroup.
 		// the gap between each card is "CARDGAP" along horizontal direction
 		for (int i = 0; i < str.length; i++) {
-			Point cardP = new Point();
-			cardP.set(p.x + i * CARDGAP, p.y);
-			Card c = new Card(str[i], cardP);
+			// Point cardP = new Point();
+			// cardP.set(p.x + i * CARDGAP, p.y);
+			Log.d("GUANPOKER", str[i]);
+			Card c = new Card(str[i]);
 			cards.add(c);
 		}
 	}
 
-	CardGroup(int num, LinkedList<Card> c, Point p, int start, int end) {
+	CardGroup(int num, LinkedList<Card> c, int start, int end) {
 		// 1, assign the value to instance variable "numCards", "cards",
 		// "cardsLocation"
 
 		this.numCards = num;
 		this.cards = new LinkedList<Card>();
-		this.cardsLocation = new Point(p);
+		//this.cardsLocation = new Point(p);
 		// this.calPosition();
 		// 2, extract the subset of the input "LinkedList<Card> c" from the
 		// start index "start" to the end index "end"
@@ -57,8 +59,8 @@ public class CardGroup {
 			if (count >= start && count < end) {
 				// card.setLocation(cardsLocation.x + i*CARDGAP,
 				// cardsLocation.y);
-				card.refreshLocation(cardsLocation.x + i * CARDGAP,
-						cardsLocation.y);
+				/*card.refreshLocation(cardsLocation.x + i * CARDGAP,
+						cardsLocation.y);*/
 				cards.add(card);
 				i++;
 			}
@@ -100,7 +102,7 @@ public class CardGroup {
 		// 2, return this new card group
 		sc.numCards = count;
 		sc.cards = l;
-		sc.cardsLocation = this.cardsLocation;
+		//sc.cardsLocation = this.cardsLocation;
 		return sc;
 	}
 
@@ -201,7 +203,7 @@ public class CardGroup {
 					this.cards.remove(c);
 				}
 			}
-			this.refreshCardsPositoin(0);
+			//this.refreshCardsPositoin(0);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -219,7 +221,7 @@ public class CardGroup {
 
 		// write your code here!
 		Collections.sort(this.cards);
-		this.refreshCardsPositoin(0);
+		// this.refreshCardsPositoin(0);
 	}
 
 	public void sortBySuits() {
@@ -246,9 +248,13 @@ public class CardGroup {
 			}
 
 		}
-		this.refreshCardsPositoin(0);
+		//this.refreshCardsPositoin(0);
 	}
 	
+	public void setCards(LinkedList<Card> cards) {
+		this.cards = cards;
+	}
+
 	public boolean isFinished(){
 		if(this.numCards != this.cards.size()){
 			System.out.println("need to check here!");
@@ -264,4 +270,10 @@ public class CardGroup {
 			//c.setMoved(false);
 		}
 	}
+
+	public int getNumCards() {
+		return numCards;
+	}
+	
+	
 }

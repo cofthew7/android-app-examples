@@ -9,16 +9,26 @@
         android:id="@+id/opponent_bar"
         layout="@layout/opponent_bar" />
 
-    <include
-        android:id="@+id/my_playcards"
-        layout="@layout/my_playcards" />
+    <GridView
+        android:id="@+id/myplaycards_gridview"
+        android:layout_width="wrap_content"
+        android:layout_height="96dp"
+        android:fadingEdge="none"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" />
 
     <include
         android:id="@+id/buttons"
         layout="@layout/buttons" />
 
-    <include
-        android:id="@+id/my_cards"
-        layout="@layout/my_cards" />
+        <GridView
+            android:id="@+id/mycards_gridview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fadingEdge="none"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
 
 </LinearLayout>

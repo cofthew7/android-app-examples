@@ -7,9 +7,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.graphics.Point;
+import android.os.Environment;
+import android.util.Log;
 
 public class Dealer {
 
+	private static final String path = Environment.getExternalStorageDirectory().toString() + "/GuanPoker/";
+	
 	public static CardGroup cg;
 	public static CardGroup cg1;
 	public static CardGroup cg2;
@@ -56,13 +60,14 @@ public class Dealer {
 		return str;
 	}
 
-	public static void initCardGroup(String url) {
+	public static void initCardGroup() {
 		// PlayCardLogic.initCards(cg, cg1, cg2, cg3);
 		String[] str = null;
-		Point p2 = new Point(10, 400);
-		str = readImageFolder(url);
+		// Point p2 = new Point(10, 400);
+		str = readImageFolder(path);
+		Log.d("GUANPOKER", str[0]);
 		System.out.println(str.length);
-		cg = new CardGroup(str, p2);
+		cg = new CardGroup(str);
 		cg.shuffleCards();
 
 		deal();
@@ -72,12 +77,12 @@ public class Dealer {
 	public static void deal() {
 		int num = cg.getCardsNumber() / 3;
 		try {
-			cg1 = new CardGroup(num, cg.getCards(), cg.getCardsLocation(), 0,
+			cg1 = new CardGroup(num, cg.getCards(), 0,
 					num);
-			cg2 = new CardGroup(num, cg.getCards(), cg.getCardsLocation(), num,
+			cg2 = new CardGroup(num, cg.getCards(), num,
 					2 * num);
-			cg3 = new CardGroup(num, cg.getCards(), cg.getCardsLocation(),
-					2 * num, 3 * num);
+			cg3 = new CardGroup(num, cg.getCards(), 2 * num, 
+					3 * num);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

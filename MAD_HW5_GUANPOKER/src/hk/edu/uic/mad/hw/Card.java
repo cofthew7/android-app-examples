@@ -1,12 +1,14 @@
 package hk.edu.uic.mad.hw;
 
 import android.graphics.Point;
+import android.os.Environment;
 
 public class Card implements Comparable{
 	public enum Suits {
 		Diamonds, Club, Hearts, Spades
 	};
 	private String name;
+	private String path;
 	private int figure = 0;
 	private Suits suit = null;
 	private boolean isBack = false;
@@ -14,10 +16,10 @@ public class Card implements Comparable{
 	private Point location = null;
 	private Point preLocation = null;
 
-	Card(String name, Point p) {
+	Card(String name) {
 		this.name = new String(name);
-
-		String seprator = new String("_");
+		this.path = Environment.getExternalStorageDirectory().toString() + "/GuanPoker/" + name + ".gif";
+		String seprator = new String("-");
 		String[] sub = name.split(seprator);
 		if (sub.length != 2) {
 			System.out.println("input strname has problem!");
@@ -62,8 +64,8 @@ public class Card implements Comparable{
 			break;
 		}
 		
-		this.location = new Point(p);
-		this.preLocation = new Point(p);
+		//this.location = new Point(p);
+		//this.preLocation = new Point(p);
 	}
 
 	public void refreshLocation(int x, int y){
@@ -75,6 +77,15 @@ public class Card implements Comparable{
 		this.location.set(x, y);
 	}
 	
+	
+	public String getName() {
+		return name;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
 	public boolean getChosen() {
 		return isChosen;
 	}
